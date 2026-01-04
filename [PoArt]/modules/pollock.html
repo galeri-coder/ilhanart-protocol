@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /* Pollock'a Özel Efektler */
+        .node-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(20px, 1fr));
+            gap: 8px;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+        }
+        .node {
+            width: 12px;
+            height: 12px;
+            background: #222;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+        .node.active {
+            background: #00ff88;
+            box-shadow: 0 0 10px #00ff88;
+            animation: pulse 2s infinite;
+        }
+        .node.busy {
+            background: #ffcc00;
+            box-shadow: 0 0 5px #ffcc00;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        .status-row {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #222;
+            padding: 10px 0;
+            font-size: 12px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .status-row:last-child { border-bottom: none; }
+    </style>
+</head>
+<body>
+    <h2>🎨 Pollock (Active Nodes)</h2>
+    
+    <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px; margin-bottom:15px;">
+        <div class="card" style="text-align:center; padding:15px;">
+            <div style="font-size:10px; color:#666;">ONLINE USERS</div>
+            <div style="font-size:24px; font-weight:bold; color:#fff;">42</div>
+        </div>
+        <div class="card" style="text-align:center; padding:15px;">
+            <div style="font-size:10px; color:#666;">NETWORK LOAD</div>
+            <div style="font-size:24px; font-weight:bold; color:#00ff88;">12%</div>
+        </div>
+        <div class="card" style="text-align:center; padding:15px;">
+            <div style="font-size:10px; color:#666;">LAST BLOCK</div>
+            <div style="font-size:14px; font-weight:bold; color:#fff; margin-top:5px;">#249,102,445</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div style="font-size:10px; color:#666; margin-bottom:10px;">NODE VISUALIZER</div>
+        <div class="node-grid" id="grid">
+            </div>
+    </div>
+
+    <div class="card">
+        <div style="font-size:10px; color:#666; margin-bottom:10px; text-transform:uppercase;">Recent Signals</div>
+        <div class="status-row">
+            <span><span class="tag green">ACTIVE</span> 0x7a...9f21</span>
+            <span style="color:#666;">Calculating Score...</span>
+        </div>
+        <div class="status-row">
+            <span><span class="tag green">ACTIVE</span> 0x3b...8e44</span>
+            <span style="color:#666;">Voting on Proposal #12</span>
+        </div>
+        <div class="status-row">
+            <span><span class="tag orange">BUSY</span> 0x9c...1a02</span>
+            <span style="color:#666;">Syncing Ledger...</span>
+        </div>
+        <div class="status-row">
+            <span><span class="tag green">ACTIVE</span> 0x2d...5b99</span>
+            <span style="color:#666;">Viewing Dashboard</span>
+        </div>
+    </div>
+
+    <script>
+        // Rastgele Grid Oluşturma (Canlı hissi vermek için)
+        const grid = document.getElementById('grid');
+        for(let i=0; i<84; i++) {
+            const div = document.createElement('div');
+            div.className = 'node';
+            
+            // Rastgele aktiflik ata
+            const rand = Math.random();
+            if(rand > 0.8) div.classList.add('active');
+            else if(rand > 0.7) div.classList.add('busy');
+            
+            grid.appendChild(div);
+        }
+
+        // Canlı değişim efekti
+        setInterval(() => {
+            const nodes = document.querySelectorAll('.node');
+            const randomNode = nodes[Math.floor(Math.random() * nodes.length)];
+            
+            if(randomNode.classList.contains('active')) {
+                randomNode.classList.remove('active');
+            } else {
+                randomNode.classList.add('active');
+            }
+        }, 500);
+    </script>
+</body>
+</html>

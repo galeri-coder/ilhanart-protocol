@@ -25,20 +25,35 @@
 <body>
     <div class="sidebar">
         <div class="brand"><div class="logo">◈</div><div><div style="font-weight:700; color:#fff">[PoArt]</div><div style="font-size:10px; color:#666">PROTOCOL V1.1</div></div></div>
+        
         <div class="menu-title">Masterpieces (Data)</div>
         <button class="nav-btn active" onclick="loadPage('modules/michelangelo.html', 'Michelangelo')">🏛️ Leaderboard</button>
         <button class="nav-btn" onclick="loadPage('modules/vangogh.html', 'Van Gogh')">🌻 Live Feed</button>
+        <button class="nav-btn" onclick="loadPage('modules/pollock.html', 'Jackson Pollock')">🎨 Active Nodes</button>
+        
         <div class="menu-title">The Atelier (Tools)</div>
         <button class="nav-btn" onclick="loadPage('modules/davinci.html', 'Da Vinci')">📐 Calculator</button>
         <button class="nav-btn" onclick="loadPage('modules/picasso.html', 'Picasso')">🎭 Sybil Lab</button>
+        
         <div class="menu-title">Philosophy (Rules)</div>
         <button class="nav-btn" onclick="loadPage('modules/dali.html', 'Dali')">🕰️ Time Filter</button>
         <button class="nav-btn" onclick="loadPage('modules/rembrandt.html', 'Rembrandt')">🌑 The Vault</button>
-        <div class="footer-info"><span style="color:#00ff88">●</span> SYSTEM ONLINE<br>Block: 249,102,441</div>
+
+        <div class="footer-info"><span style="color:#00ff88">●</span> SYSTEM ONLINE<br>Block: 249,102,445</div>
     </div>
+
     <div class="main">
         <div class="top-bar"><h1 id="page-title">Michelangelo</h1><div style="font-size:10px; color:#666; font-family:monospace;">CONNECTED</div></div>
         <iframe id="app-frame" class="content-frame" src="modules/michelangelo.html"></iframe>
     </div>
-    <script>function loadPage(u,t){document.getElementById('app-frame').src=u;document.getElementById('page-title').innerText=t;document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));event.currentTarget.classList.add('active');}</script>
-</body></html>
+
+    <script>
+        function loadPage(u,t){
+            document.getElementById('app-frame').src=u;
+            document.getElementById('page-title').innerText=t;
+            document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>

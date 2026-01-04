@@ -1,4 +1,14 @@
-<!DOCTYPE html>
+const fs = require('fs');
+const path = require('path');
+
+console.log("🎨 POLLOCK GÜNCELLENİYOR: DETAYLI AĞ ARAYÜZÜ YÜKLENİYOR...");
+
+const root = path.join(__dirname, '[PoArt]');
+
+// =======================================================
+// YENİ GÜÇLÜ POLLOCK MODÜLÜ (INFO + VISUALIZER)
+// =======================================================
+const pollockHTML = `<!DOCTYPE html>
 <html lang="en">
 <head>
     <link rel="stylesheet" href="../css/style.css">
@@ -193,4 +203,7 @@
         }, 100);
     </script>
 </body>
-</html>
+</html>`;
+
+fs.writeFileSync(path.join(root, 'modules/pollock.html'), pollockHTML);
+console.log("✅ POLLOCK ARAYÜZÜ YENİLENDİ: DAHA DOLU VE AÇIKLAYICI!");

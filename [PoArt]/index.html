@@ -3,55 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>İlhanArt | [PoArt]</title>
+    <title>İlhanArt | [PoArt] Terminal</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --bg-dark: #050505; --panel: #0a0a0a; --border: #1a1a1a; --accent: #00ff88; --text: #e0e0e0; --font-main: 'Inter', sans-serif; --font-mono: 'JetBrains Mono', monospace; }
-        body { background: var(--bg-dark); color: var(--text); font-family: var(--font-main); margin:0; padding:0; display:flex; height:100vh; overflow:hidden; }
-        .sidebar { width:260px; background:var(--panel); border-right:1px solid var(--border); padding:20px; display:flex; flex-direction:column; overflow-y:auto; }
-        .brand { display:flex; align-items:center; gap:10px; margin-bottom:30px; border-bottom:1px solid var(--border); padding-bottom:20px; }
-        .logo { width:32px; height:32px; background:var(--accent); color:#000; display:grid; place-items:center; font-weight:bold; border-radius:4px; }
-        .menu-title { font-size:10px; font-family:var(--font-mono); color:#444; margin:20px 0 10px; text-transform:uppercase; font-weight:bold; }
-        .nav-btn { background: none; border: none; width: 100%; text-align: left; padding: 10px; margin: 2px 0; border-radius: 6px; color: #888; cursor: pointer; font-size: 13px; font-family: var(--font-main); transition: 0.2s; display: flex; align-items: center; gap: 8px; }
-        .nav-btn:hover, .nav-btn.active { background: rgba(0,255,136,0.05); color: var(--accent); }
-        .nav-btn.active { border-left: 2px solid var(--accent); }
-        .main { flex:1; display: flex; flex-direction: column; background: radial-gradient(circle at top right, #0f150f 0%, #050505 40%); }
-        .top-bar { padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        h1 { font-size: 18px; margin: 0; font-weight: 600; font-family: var(--font-mono); letter-spacing: -0.5px; }
+        :root {
+            --bg-app: #050505; /* En koyu arka plan */
+            --bg-sidebar: #0a0b0a; /* Menü arka planı (hafif gri tonlu siyah) */
+            --bg-main-gradient: radial-gradient(circle at top right, #111f15 0%, #050505 45%); /* Zenginlik katan yeşilimsi degrade */
+            --border-color: #1f1f1f;
+            --accent: #00ff88;
+            --text-primary: #e0e0e0;
+            --text-muted: #777;
+            --font-main: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            background: var(--bg-app); 
+            color: var(--text-primary); 
+            font-family: var(--font-main); 
+            height: 100vh; 
+            display: flex; 
+            overflow: hidden; 
+        }
+        
+        /* --- SIDEBAR (MENÜ) --- */
+        .sidebar { 
+            width: 260px; 
+            background: var(--bg-sidebar); 
+            border-right: 1px solid var(--border-color); 
+            padding: 25px; 
+            display: flex; 
+            flex-direction: column; 
+            flex-shrink: 0; /* Menünün daralmasını engeller */
+        }
+        
+        .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid var(--border-color); }
+        .logo { width: 32px; height: 32px; background: var(--accent); color: #000; display: grid; place-items: center; font-weight: 700; border-radius: 6px; box-shadow: 0 0 10px rgba(0,255,136,0.2); }
+        .brand-text h1 { font-size: 16px; font-weight: 700; color: #fff; letter-spacing: 1px; }
+        .brand-text span { font-size: 10px; color: var(--accent); font-family: var(--font-mono); }
+        
+        .menu-title { font-size: 10px; font-family: var(--font-mono); color: var(--text-muted); margin: 25px 0 10px; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; }
+        
+        .nav-btn { 
+            background: transparent; border: none; width: 100%; text-align: left; 
+            padding: 12px 15px; margin: 4px 0; border-radius: 8px; 
+            color: var(--text-muted); cursor: pointer; font-size: 13px; font-weight: 500;
+            font-family: var(--font-main); transition: all 0.2s ease; 
+            display: flex; align-items: center; gap: 10px; border: 1px solid transparent;
+        }
+        .nav-btn:hover { background: rgba(255,255,255,0.03); color: #fff; }
+        .nav-btn.active { 
+            background: rgba(0,255,136,0.08); 
+            color: var(--accent); 
+            border-color: rgba(0,255,136,0.2);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .footer-info { margin-top: auto; font-size: 10px; color: var(--text-muted); font-family: var(--font-mono); padding-top: 20px; border-top: 1px solid var(--border-color); display: flex; align-items: center; gap: 8px; }
+        .status-led { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 5px var(--accent); animation: pulse 2s infinite; }
+        @keyframes pulse { 0%{opacity:1} 50%{opacity:0.5} 100%{opacity:1} }
+
+        /* --- MAIN AREA --- */
+        .main { 
+            flex: 1; 
+            display: flex; 
+            flex-direction: column; 
+            background: var(--bg-main-gradient); /* Zengin arka plan */
+            position: relative;
+        }
+        
+        .top-bar { 
+            padding: 20px 30px; 
+            border-bottom: 1px solid var(--border-color); 
+            display: flex; justify-content: space-between; align-items: center; 
+            background: rgba(10, 11, 10, 0.8); backdrop-filter: blur(10px);
+        }
+        h2#page-title { font-size: 18px; margin: 0; font-weight: 600; font-family: var(--font-mono); letter-spacing: 1px; color: #fff; }
+        .connection-status { font-size: 10px; color: var(--accent); font-family: var(--font-mono); border: 1px solid rgba(0,255,136,0.3); padding: 4px 10px; border-radius: 20px; background: rgba(0,255,136,0.05); }
+
         .content-frame { flex: 1; border: none; width: 100%; height: 100%; background: transparent; }
-        .footer-info { margin-top: auto; font-size: 10px; color: #444; font-family: var(--font-mono); padding-top: 20px; border-top: 1px solid var(--border); }
     </style>
 </head>
 <body>
     <div class="sidebar">
-        <div class="brand"><div class="logo">◈</div><div><div style="font-weight:700; color:#fff">[PoArt]</div><div style="font-size:10px; color:#666">PROTOCOL V1.1</div></div></div>
-        
-        <div class="menu-title">Masterpieces (Data)</div>
-        <button class="nav-btn active" onclick="loadPage('modules/michelangelo.html', 'Michelangelo')">🏛️ Leaderboard</button>
-        <button class="nav-btn" onclick="loadPage('modules/vangogh.html', 'Van Gogh')">🌻 Live Feed</button>
-        <button class="nav-btn" onclick="loadPage('modules/pollock.html', 'Jackson Pollock')">🎨 Active Nodes</button>
-        
-        <div class="menu-title">The Atelier (Tools)</div>
-        <button class="nav-btn" onclick="loadPage('modules/davinci.html', 'Da Vinci')">📐 Calculator</button>
-        <button class="nav-btn" onclick="loadPage('modules/picasso.html', 'Picasso')">🎭 Sybil Lab</button>
-        
-        <div class="menu-title">Philosophy (Rules)</div>
-        <button class="nav-btn" onclick="loadPage('modules/dali.html', 'Dali')">🕰️ Time Filter</button>
-        <button class="nav-btn" onclick="loadPage('modules/rembrandt.html', 'Rembrandt')">🌑 The Vault</button>
+        <div class="brand">
+            <div class="logo">◈</div>
+            <div class="brand-text">
+                <h1>[PoArt]</h1>
+                <span>PROTOCOL TERMINAL</span>
+            </div>
+        </div>
 
-        <div class="footer-info"><span style="color:#00ff88">●</span> SYSTEM ONLINE<br>Block: 249,102,445</div>
+        <div class="menu-title">Live Data</div>
+        <button class="nav-btn active" onclick="loadPage('modules/michelangelo.html', 'Michelangelo // Leaderboard')">🏛️ Leaderboard</button>
+        <button class="nav-btn" onclick="loadPage('modules/vangogh.html', 'Van Gogh // Live Feed')">🌻 Activity Feed</button>
+        <button class="nav-btn" onclick="loadPage('modules/pollock.html', 'Jackson Pollock // Active Nodes')">🎨 Network Status</button>
+        
+        <div class="menu-title">Tools & Simulation</div>
+        <button class="nav-btn" onclick="loadPage('modules/davinci.html', 'Da Vinci // Calculator')">📐 Score Calc</button>
+        <button class="nav-btn" onclick="loadPage('modules/picasso.html', 'Picasso // Sybil Lab')">🎭 Attack Sim</button>
+        
+        <div class="menu-title">Protocol Rules</div>
+        <button class="nav-btn" onclick="loadPage('modules/dali.html', 'Dali // Time Filter')">🕰️ The 365 Rule</button>
+        <button class="nav-btn" onclick="loadPage('modules/rembrandt.html', 'Rembrandt // The Vault')">🌑 Vault Security</button>
+
+        <div class="footer-info">
+            <div class="status-led"></div>
+            <div>SYSTEM ONLINE <br> Height: 249,102,445</div>
+        </div>
     </div>
 
     <div class="main">
-        <div class="top-bar"><h1 id="page-title">Michelangelo</h1><div style="font-size:10px; color:#666; font-family:monospace;">CONNECTED</div></div>
+        <div class="top-bar">
+            <h2 id="page-title">Michelangelo // Leaderboard</h2>
+            <div class="connection-status">● SECURE CONNECTION</div>
+        </div>
         <iframe id="app-frame" class="content-frame" src="modules/michelangelo.html"></iframe>
     </div>
 
     <script>
-        function loadPage(u,t){
-            document.getElementById('app-frame').src=u;
-            document.getElementById('page-title').innerText=t;
-            document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+        function loadPage(url, title) {
+            document.getElementById('app-frame').src = url;
+            document.getElementById('page-title').innerText = title;
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
             event.currentTarget.classList.add('active');
         }
     </script>

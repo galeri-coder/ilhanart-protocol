@@ -1,0 +1,12 @@
+[package]
+name = "fp_registry"
+version = "0.1.0"
+description = "FPP Registry program (snapshot commits)"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "fp_registry"
+
+[dependencies]
+anchor-lang = "0.30.1"

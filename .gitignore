@@ -1,0 +1,17 @@
+# Node
+node_modules/
+dist/
+*.log
+
+# OS
+.DS_Store
+
+# FPP data: keep heartbeats, ignore DB
+data/*.db
+!data/last_run.json
+!data/last_proof_run.json
+
+# Optional local outputs
+out/
+fp.db
+*.sqlite

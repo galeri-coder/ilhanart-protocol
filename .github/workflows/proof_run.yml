@@ -1,0 +1,165 @@
+name: Ilhan Art - FPP Snapshot & Proof (Manual)
+on:
+  workflow_dispatch:
+    inputs:
+      wallet:
+        description: "Wallet address to generate inclusion proof for"
+        required: true
+        type: string
+      snapshot_id:
+        description: "Snapshot ID (leave empty to use today's UTC date)"
+        required: false
+        type: string
+      window_days:
+        description: "TWAB window (days)"
+        required: false
+        default: "30"
+        type: string
+      base:
+        description: "Contribution base"
+        required: false
+        default: "1000"
+        type: string
+      contrib_path:
+        description: "Optional contributions JSON path (example: data/contributions.json)"
+        required: false
+        type: string
+
+concurrency:
+  group: fpp-proof-run
+  cancel-in-progress: true
+
+jobs:
+  proof-run:
+    name: Build Snapshot + Proof
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+          cache-dependency-path: "packages/indexer/package-lock.json"
+
+      - name: Install Deps
+        working-directory: packages/indexer
+        run: npm ci
+
+      - name: Run Pipeline (sample -> snapshot -> proof -> verify)
+        working-directory: packages/indexer
+        env:
+          RPC_URL: ${{ secrets.SOLANA_RPC_URL }}
+          MINT: ${{ secrets.SPL_MINT_ADDRESS }}
+          WALLET: ${{ inputs.wallet }}
+          SNAPSHOT_ID_INPUT: ${{ inputs.snapshot_id }}
+          WINDOW_DAYS: ${{ inputs.window_days }}
+          BASE: ${{ inputs.base }}
+          CONTRIB_PATH: ${{ inputs.contrib_path }}
+        run: |
+          set -euo pipefail
+          : "${RPC_URL:?Missing secret SOLANA_RPC_URL}"
+          : "${MINT:?Missing secret SPL_MINT_ADDRESS}"
+          : "${WALLET:?Missing workflow input wallet}"
+
+          NOW_TS=$(date -u +%s)
+          ISO_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+
+          SNAPSHOT_ID="${SNAPSHOT_ID_INPUT:-}"
+          if [ -z "$SNAPSHOT_ID" ]; then
+            SNAPSHOT_ID=$(date -u +%F)
+          fi
+
+          mkdir -p ../../data ../../out
+
+          echo "== Sampling =="
+          npx ts-node src/cli.ts sample \
+            --rpc "$RPC_URL" \
+            --mint "$MINT" \
+            --db "../../data/fp.db" \
+            --ts "$NOW_TS"
+
+          echo "== Snapshot =="
+          SNAP_CMD=(npx ts-node src/cli.ts snapshot
+            --db "../../data/fp.db"
+            --out "../../out/snapshot.json"
+            --snapshot-id "$SNAPSHOT_ID"
+            --mint "$MINT"
+            --snapshot-ts "$NOW_TS"
+            --window-days "$WINDOW_DAYS"
+            --base "$BASE"
+          )
+
+          if [ -n "${CONTRIB_PATH:-}" ]; then
+            SNAP_CMD+=(--contrib "$CONTRIB_PATH")
+          fi
+
+          "${SNAP_CMD[@]}"
+
+          echo "== Proof =="
+          npx ts-node src/cli.ts proof \
+            --snapshot "../../out/snapshot.json" \
+            --wallet "$WALLET" \
+            --out "../../out/proof.json"
+
+          echo "== Verify (strict) =="
+          npx ts-node - <<'TS'
+          import fs from "fs";
+          import { verifyProof } from "./src/merkle";
+
+          const snap = JSON.parse(fs.readFileSync("../../out/snapshot.json","utf8"));
+          const proof = JSON.parse(fs.readFileSync("../../out/proof.json","utf8"));
+
+          const entry = snap.entries.find((e: any) => e.wallet === proof.wallet);
+          if (!entry) throw new Error("Wallet not found in snapshot entries");
+
+          const ok = verifyProof({
+            wallet: proof.wallet,
+            finalScoreFixed: entry.final_score,
+            proof: proof.proof,
+            rootHex: proof.merkle_root
+          });
+
+          if (!ok) {
+            console.error("FAIL: invalid proof");
+            process.exit(1);
+          }
+          console.log("OK: proof valid");
+          TS
+
+          echo "== Write repo heartbeat (proof run) =="
+          MERKLE_ROOT=$(node -e "console.log(JSON.parse(require('fs').readFileSync('../../out/snapshot.json','utf8')).merkle_root)")
+          cat > ../../data/last_proof_run.json <<EOF
+          {
+            "last_update": "$ISO_DATE",
+            "timestamp": $NOW_TS,
+            "mint": "$MINT",
+            "snapshot_id": "$SNAPSHOT_ID",
+            "wallet": "$WALLET",
+            "merkle_root": "$MERKLE_ROOT",
+            "status": "active",
+            "system": "F.P.P. Proof Runner V1.0"
+          }
+          EOF
+
+      - name: Upload Artifacts (DB + Snapshot + Proof)
+        uses: actions/upload-artifact@v4
+        with:
+          name: fpp-proof-run-${{ github.run_id }}
+          path: |
+            data/fp.db
+            out/snapshot.json
+            out/proof.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Commit Proof Heartbeat
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(status): update proof-run heartbeat [skip ci]"
+          file_pattern: "data/last_proof_run.json"

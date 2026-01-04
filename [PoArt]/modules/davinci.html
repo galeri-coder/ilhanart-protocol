@@ -1,0 +1,11 @@
+<!DOCTYPE html><html><head><link rel="stylesheet" href="../css/style.css"></head><body>
+<h2>📐 Da Vinci (The Architect)</h2><div style="display:grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+<div class="card"><label style="font-size:11px; color:#888;">ILHAN Token Holdings</label><input type="number" id="tokens" value="10000" step="100">
+<label style="font-size:11px; color:#888;">Holding Duration (TWAB)</label><input type="range" id="days" min="1" max="30" value="30"><div style="text-align:right; font-size:11px; color:#00ff88;" id="days-display">30 Days</div>
+<hr style="border:0; border-top:1px solid #333; margin:15px 0;"><label style="font-size:11px; color:#888;">Cultural Points</label><input type="number" id="cult" value="0"></div>
+<div class="card" style="text-align:center; display:flex; flex-direction:column; justify-content:center;"><div style="font-size:11px; color:#666;">PROJECTED SCORE</div><div id="final-score" class="result-display">0</div>
+<div style="margin-top:20px; text-align:left; font-size:12px;"><div style="display:flex; justify-content:space-between;"><span style="color:#666">Multiplier:</span><span id="multiplier" style="color:#00ff88">1.0x</span></div></div></div></div>
+<script>function calculate(){const t=parseFloat(document.getElementById('tokens').value)||0;const d=parseFloat(document.getElementById('days').value)||1;const c=parseFloat(document.getElementById('cult').value)||0;
+document.getElementById('days-display').innerText=d+" Days";const score=Math.log10(1+(t*(d/30)))*10000*(1+(c/1000));
+document.getElementById('final-score').innerText=Math.floor(score).toLocaleString();document.getElementById('multiplier').innerText=(1+(c/1000)).toFixed(2)+"x";}
+document.querySelectorAll('input').forEach(i=>i.addEventListener('input',calculate));calculate();</script></body></html>

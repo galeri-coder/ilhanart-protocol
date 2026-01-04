@@ -3,104 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>İlhanArt Protocol | [PoArt] Hub</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <title>İlhanArt | [PoArt]</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-dark: #050505;
-            --panel: #0a0a0a;
-            --border: #1a1a1a;
-            --accent: #00ff88;
-            --text: #e0e0e0;
-            --font-main: 'Inter', sans-serif;
-            --font-mono: 'JetBrains Mono', monospace;
-        }
+        :root { --bg-dark: #050505; --panel: #0a0a0a; --border: #1a1a1a; --accent: #00ff88; --text: #e0e0e0; --font-main: 'Inter', sans-serif; --font-mono: 'JetBrains Mono', monospace; }
         body { background: var(--bg-dark); color: var(--text); font-family: var(--font-main); margin:0; padding:0; display:flex; height:100vh; overflow:hidden; }
-        
-        /* SIDEBAR */
         .sidebar { width:260px; background:var(--panel); border-right:1px solid var(--border); padding:20px; display:flex; flex-direction:column; overflow-y:auto; }
         .brand { display:flex; align-items:center; gap:10px; margin-bottom:30px; border-bottom:1px solid var(--border); padding-bottom:20px; }
         .logo { width:32px; height:32px; background:var(--accent); color:#000; display:grid; place-items:center; font-weight:bold; border-radius:4px; }
-        
         .menu-title { font-size:10px; font-family:var(--font-mono); color:#444; margin:20px 0 10px; text-transform:uppercase; font-weight:bold; }
-        
-        .nav-btn {
-            background: none; border: none; width: 100%; text-align: left;
-            padding: 10px; margin: 2px 0; border-radius: 6px;
-            color: #888; cursor: pointer; font-size: 13px; font-family: var(--font-main);
-            transition: 0.2s; display: flex; align-items: center; gap: 8px;
-        }
+        .nav-btn { background: none; border: none; width: 100%; text-align: left; padding: 10px; margin: 2px 0; border-radius: 6px; color: #888; cursor: pointer; font-size: 13px; font-family: var(--font-main); transition: 0.2s; display: flex; align-items: center; gap: 8px; }
         .nav-btn:hover, .nav-btn.active { background: rgba(0,255,136,0.05); color: var(--accent); }
         .nav-btn.active { border-left: 2px solid var(--accent); }
-
-        /* MAIN AREA */
         .main { flex:1; display: flex; flex-direction: column; background: radial-gradient(circle at top right, #0f150f 0%, #050505 40%); }
-        
         .top-bar { padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        h1 { font-size: 18px; margin: 0; font-weight: 600; }
-        .status-badge { font-size: 10px; font-family: var(--font-mono); background: rgba(0,255,136,0.1); color: var(--accent); padding: 4px 8px; border-radius: 4px; border: 1px solid rgba(0,255,136,0.2); }
-
-        /* IFRAME CONTAINER */
+        h1 { font-size: 18px; margin: 0; font-weight: 600; font-family: var(--font-mono); letter-spacing: -0.5px; }
         .content-frame { flex: 1; border: none; width: 100%; height: 100%; background: transparent; }
-        
         .footer-info { margin-top: auto; font-size: 10px; color: #444; font-family: var(--font-mono); padding-top: 20px; border-top: 1px solid var(--border); }
     </style>
 </head>
 <body>
-
     <div class="sidebar">
-        <div class="brand">
-            <div class="logo">◈</div>
-            <div>
-                <div style="font-weight:700; color:#fff">[PoArt]</div>
-                <div style="font-size:10px; color:#666">PROTOCOL V1.1</div>
-            </div>
-        </div>
-
-        <div class="menu-title">Main Dashboard</div>
-        <button class="nav-btn active" onclick="loadPage('modules/10-leaderboard.html', this)">📊 Leaderboard</button>
-        <button class="nav-btn" onclick="loadPage('modules/12-activity-feed.html', this)">📡 Live Feed</button>
-
-        <div class="menu-title">Calculators</div>
-        <button class="nav-btn" onclick="loadPage('modules/calculators/01-simple-score.html', this)">🧮 Simple Score</button>
-        <button class="nav-btn" onclick="loadPage('modules/calculators/03-master-calc.html', this)">⚡ Master Calculator</button>
-        
-        <div class="menu-title">Mechanisms</div>
-        <button class="nav-btn" onclick="loadPage('modules/demos/05-zombie-filter.html', this)">🧟 Zombie Filter</button>
-        <button class="nav-btn" onclick="loadPage('modules/demos/04-legacy-vault.html', this)">🕰️ Legacy Vault</button>
-        <button class="nav-btn" onclick="loadPage('modules/demos/02-sybil-lab.html', this)">🧪 Sybil Lab</button>
-
-        <div class="menu-title">Documentation</div>
-        <button class="nav-btn" onclick="window.open('docs/tr/founding-patrons-protocol-FULL.md')">📘 Full Protocol</button>
-        <button class="nav-btn" onclick="window.open('data/protocol-params.json')">💾 System JSON</button>
-
-        <div class="footer-info">
-            <span style="color:#00ff88">●</span> SYSTEM ONLINE<br>
-            Block: <span id="block">249,102,441</span>
-        </div>
+        <div class="brand"><div class="logo">◈</div><div><div style="font-weight:700; color:#fff">[PoArt]</div><div style="font-size:10px; color:#666">PROTOCOL V1.1</div></div></div>
+        <div class="menu-title">Masterpieces (Data)</div>
+        <button class="nav-btn active" onclick="loadPage('modules/michelangelo.html', 'Michelangelo')">🏛️ Leaderboard</button>
+        <button class="nav-btn" onclick="loadPage('modules/vangogh.html', 'Van Gogh')">🌻 Live Feed</button>
+        <div class="menu-title">The Atelier (Tools)</div>
+        <button class="nav-btn" onclick="loadPage('modules/davinci.html', 'Da Vinci')">📐 Calculator</button>
+        <button class="nav-btn" onclick="loadPage('modules/picasso.html', 'Picasso')">🎭 Sybil Lab</button>
+        <div class="menu-title">Philosophy (Rules)</div>
+        <button class="nav-btn" onclick="loadPage('modules/dali.html', 'Dali')">🕰️ Time Filter</button>
+        <button class="nav-btn" onclick="loadPage('modules/rembrandt.html', 'Rembrandt')">🌑 The Vault</button>
+        <div class="footer-info"><span style="color:#00ff88">●</span> SYSTEM ONLINE<br>Block: 249,102,441</div>
     </div>
-
     <div class="main">
-        <div class="top-bar">
-            <h1 id="page-title">Live Leaderboard</h1>
-            <div class="status-badge">CONNECTED</div>
-        </div>
-        <iframe id="app-frame" class="content-frame" src="modules/10-leaderboard.html"></iframe>
+        <div class="top-bar"><h1 id="page-title">Michelangelo</h1><div style="font-size:10px; color:#666; font-family:monospace;">CONNECTED</div></div>
+        <iframe id="app-frame" class="content-frame" src="modules/michelangelo.html"></iframe>
     </div>
-
-    <script>
-        function loadPage(url, btn) {
-            // İframe'i değiştir
-            document.getElementById('app-frame').src = url;
-            
-            // Başlığı güncelle
-            const title = btn.innerText.replace(/[^a-zA-Z ]/g, "");
-            document.getElementById('page-title').innerText = title;
-
-            // Aktif butonu boya
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-        }
-    </script>
-</body>
-</html>
+    <script>function loadPage(u,t){document.getElementById('app-frame').src=u;document.getElementById('page-title').innerText=t;document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));event.currentTarget.classList.add('active');}</script>
+</body></html>

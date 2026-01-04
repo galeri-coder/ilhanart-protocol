@@ -1,0 +1,10 @@
+{
+  "name": "ilhanart-protocol",
+  "private": true,
+  "workspaces": [
+    "[F.P.P.]/packages/*"
+  ],
+  "scripts": {
+    "build": "npm -w \"[F.P.P.]/packages/indexer\" run build"
+  }
+}

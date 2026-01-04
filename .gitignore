@@ -1,0 +1,5 @@
+node_modules/
+dist/
+[F.P.P.]/data/*.db
+![F.P.P.]/data/last_proof_run.json
+.DS_Store

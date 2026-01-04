@@ -1,0 +1,8 @@
+{
+  "name": "@ilhan-art/fpp-indexer",
+  "version": "1.0.0",
+  "main": "dist/cli.js",
+  "scripts": {
+    "start": "node dist/cli.js"
+  }
+}

@@ -17,121 +17,59 @@
             --font-main: 'Inter', sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
         }
-        
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--bg-app); color: var(--text-primary); font-family: var(--font-main); height: 100vh; display: flex; overflow: hidden; }
         
-        body { 
-            background: var(--bg-app); 
-            color: var(--text-primary); 
-            font-family: var(--font-main); 
-            height: 100vh; 
-            display: flex; 
-            overflow: hidden; 
-        }
-        
-        .sidebar { 
-            width: 260px; 
-            background: var(--bg-sidebar); 
-            border-right: 1px solid var(--border-color); 
-            padding: 25px; 
-            display: flex; 
-            flex-direction: column; 
-            flex-shrink: 0;
-        }
-        
+        /* --- SIDEBAR --- */
+        .sidebar { width: 260px; background: var(--bg-sidebar); border-right: 1px solid var(--border-color); padding: 25px; display: flex; flex-direction: column; flex-shrink: 0; }
         .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid var(--border-color); }
-        .logo { width: 32px; height: 32px; background: var(--accent); color: #000; display: grid; place-items: center; font-weight: 700; border-radius: 6px; box-shadow: 0 0 10px rgba(0,255,136,0.2); }
+        .logo { width: 32px; height: 32px; background: var(--accent); color: #000; display: grid; place-items: center; font-weight: 700; border-radius: 6px; }
         .brand-text h1 { font-size: 16px; font-weight: 700; color: #fff; letter-spacing: 1px; }
         .brand-text span { font-size: 10px; color: var(--accent); font-family: var(--font-mono); }
         
         .menu-title { font-size: 10px; font-family: var(--font-mono); color: var(--text-muted); margin: 25px 0 10px; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; }
-        
-        .nav-btn { 
-            background: transparent; border: none; width: 100%; text-align: left; 
-            padding: 12px 15px; margin: 4px 0; border-radius: 8px; 
-            color: var(--text-muted); cursor: pointer; font-size: 13px; font-weight: 500;
-            font-family: var(--font-main); transition: all 0.2s ease; 
-            display: flex; align-items: center; justify-content: space-between; border: 1px solid transparent;
-        }
+        .nav-btn { background: transparent; border: none; width: 100%; text-align: left; padding: 12px 15px; margin: 4px 0; border-radius: 8px; color: var(--text-muted); cursor: pointer; font-size: 13px; display: flex; align-items: center; justify-content: space-between; transition: 0.2s; }
         .nav-btn:hover { background: rgba(255,255,255,0.03); color: #fff; }
-        .nav-btn.active { background: rgba(0,255,136,0.08); color: var(--accent); border-color: rgba(0,255,136,0.2); }
-
-        /* MÜHÜR TASARIMLARI */
-        .badge { font-size: 9px; font-family: var(--font-mono); padding: 2px 6px; border-radius: 4px; text-transform: uppercase; font-weight: bold; }
-        .badge-verified { color: #00ff88; border: 1px solid rgba(0,255,136,0.3); background: rgba(0,255,136,0.05); }
-        .badge-cp { color: #f1c40f; border: 1px solid rgba(241,196,15,0.3); background: rgba(241,196,15,0.05); }
-
-        /* ENGINE STATUS TASARIMI */
-        .engine-box {
-            margin-top: 30px;
-            padding: 15px;
-            background: rgba(255,255,255,0.02);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-        }
-        .engine-header { font-size: 9px; font-family: var(--font-mono); color: var(--text-muted); margin-bottom: 8px; display: flex; align-items: center; gap: 5px; }
-        .engine-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 5px var(--accent); }
-        .engine-val { font-size: 12px; font-family: var(--font-mono); color: var(--accent); font-weight: 700; }
-        .engine-sub { font-size: 9px; color: #555; margin-top: 4px; letter-spacing: 0.5px; }
+        .nav-btn.active { background: rgba(0,255,136,0.08); color: var(--accent); }
         
-        .footer-info { margin-top: auto; font-size: 10px; color: var(--text-muted); font-family: var(--font-mono); padding-top: 20px; border-top: 1px solid var(--border-color); display: flex; align-items: center; gap: 8px; }
-        .status-led { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 5px var(--accent); animation: pulse 2s infinite; }
-        @keyframes pulse { 0%{opacity:1} 50%{opacity:0.5} 100%{opacity:1} }
+        /* MÜHÜR TASARIMI */
+        .badge-verified { color: #00ff88; font-size: 9px; font-family: var(--font-mono); border: 1px solid rgba(0,255,136,0.3); padding: 1px 4px; border-radius: 3px; }
 
+        /* SOL ATE ENGINE TAMİRİ */
+        .engine-status-box { margin-top: 30px; padding: 15px; background: rgba(0,255,136,0.03); border: 1px solid rgba(0,255,136,0.1); border-radius: 8px; }
+        .engine-title { font-size: 9px; font-family: var(--font-mono); color: var(--accent); font-weight: 700; margin-bottom: 5px; }
+        .engine-text { font-size: 11px; color: #fff; font-family: var(--font-mono); }
+
+        .footer-info { margin-top: auto; font-size: 10px; color: var(--text-muted); font-family: var(--font-mono); padding-top: 20px; border-top: 1px solid var(--border-color); display: flex; align-items: center; gap: 8px; }
+        .status-led { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 5px var(--accent); }
         .main { flex: 1; display: flex; flex-direction: column; background: var(--bg-main-gradient); }
-        .top-bar { padding: 20px 30px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: rgba(10, 11, 10, 0.8); backdrop-filter: blur(10px); }
+        .top-bar { padding: 20px 30px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: rgba(10,11,10,0.8); backdrop-filter: blur(10px); }
         h2#page-title { font-size: 18px; color: #fff; font-family: var(--font-mono); }
         .connection-status { font-size: 10px; color: var(--accent); font-family: var(--font-mono); border: 1px solid rgba(0,255,136,0.3); padding: 4px 10px; border-radius: 20px; }
-        .content-frame { flex: 1; border: none; width: 100%; height: 100%; background: transparent; }
+        .content-frame { flex: 1; border: none; width: 100%; height: 100%; }
     </style>
 </head>
 <body>
     <div class="sidebar">
-        <div class="brand">
-            <div class="logo">◈</div>
-            <div class="brand-text"><h1>[PoArt]</h1><span>PROTOCOL TERMINAL</span></div>
-        </div>
-
-        <div class="menu-title">Live Data Tracking</div>
-        <button class="nav-btn active" onclick="loadPage('modules/michelangelo.html', 'Michelangelo // Leaderboard')">
-            <span>🏛️ Leaderboard</span> 
-            <span class="badge badge-cp">120 CP</span>
-        </button>
-        <button class="nav-btn" onclick="loadPage('modules/vangogh.html', 'Van Gogh // Live Feed')">🌻 Activity Feed</button>
+        <div class="brand"><div class="logo">◈</div><div class="brand-text"><h1>[PoArt]</h1><span>PROTOCOL TERMINAL</span></div></div>
         
-        <div class="menu-title">Master Rules</div>
-        <button class="nav-btn" onclick="loadPage('modules/dali.html', 'Dali // Time Filter')">
-            <span>🕰️ The 365 Rule</span> 
-            <span class="badge badge-verified">VERIFIED</span>
-        </button>
+        <div class="menu-title">Live Data</div>
+        <button class="nav-btn active">🏛️ Leaderboard</button>
+        <button class="nav-btn">🌻 Activity Feed</button>
+        
+        <div class="menu-title">Protocol Rules</div>
+        <button class="nav-btn"><span>🕰️ The 365 Rule</span> <span class="badge-verified">VERIFIED</span></button>
 
-        <div class="engine-box">
-            <div class="engine-header"><div class="engine-dot"></div> SOL ATE ENGINE</div>
-            <div class="engine-val">STATUS: SYNCED</div>
-            <div class="engine-sub">GOVERNANCE PROTOCOL V1.0</div>
+        <div class="engine-status-box">
+            <div class="engine-title">● SOL ATE ENGINE</div>
+            <div class="engine-text">STATUS: SYNCED</div>
         </div>
 
-        <div class="footer-info">
-            <div class="status-led"></div>
-            <div>SYSTEM ONLINE <br> Height: 249,102,445</div>
-        </div>
+        <div class="footer-info"><div class="status-led"></div><div>SYSTEM ONLINE <br> Height: 249,102,445</div></div>
     </div>
-
     <div class="main">
-        <div class="top-bar">
-            <h2 id="page-title">Michelangelo // Leaderboard</h2>
-            <div class="connection-status">● SECURE CONNECTION</div>
-        </div>
+        <div class="top-bar"><h2 id="page-title">Michelangelo // Leaderboard</h2><div class="connection-status">● SECURE CONNECTION</div></div>
         <iframe id="app-frame" class="content-frame" src="modules/michelangelo.html"></iframe>
     </div>
-
-    <script>
-        function loadPage(url, title) {
-            document.getElementById('app-frame').src = url;
-            document.getElementById('page-title').innerText = title;
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-        }
-    </script>
 </body>
 </html>

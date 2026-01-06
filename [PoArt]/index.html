@@ -15,8 +15,6 @@
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: var(--bg-app); color: var(--text-primary); font-family: var(--font-main); height: 100vh; display: flex; overflow: hidden; }
-        
-        /* SIDEBAR */
         .sidebar { width: 260px; background: var(--bg-sidebar); border-right: 1px solid var(--border-color); padding: 25px; display: flex; flex-direction: column; flex-shrink: 0; }
         .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid var(--border-color); }
         .logo { width: 32px; height: 32px; background: var(--accent); color: #000; display: grid; place-items: center; font-weight: 700; border-radius: 6px; }
@@ -24,11 +22,8 @@
         .nav-btn { background: transparent; border: none; width: 100%; text-align: left; padding: 12px 15px; margin: 4px 0; border-radius: 8px; color: var(--text-muted); cursor: pointer; font-size: 13px; display: flex; align-items: center; justify-content: space-between; transition: 0.2s; }
         .nav-btn:hover { background: rgba(255,255,255,0.03); color: #fff; }
         .nav-btn.active { background: rgba(0,255,136,0.08); color: var(--accent); border-color: rgba(0,255,136,0.2); }
-        
-        /* MÜHÜR TASARIMI */
         .badge-verified { color: #00ff88; font-size: 9px; font-family: var(--font-mono); border: 1px solid rgba(0,255,136,0.3); padding: 1px 4px; border-radius: 3px; }
         
-        /* SOL ATE ENGINE - SYNCED STATUS */
         .engine-box { margin-top: 30px; padding: 15px; background: rgba(0,255,136,0.03); border: 1px solid rgba(0,255,136,0.1); border-radius: 8px; }
         .engine-status { font-size: 11px; font-family: var(--font-mono); color: var(--accent); font-weight: 700; }
         
@@ -40,11 +35,15 @@
 </head>
 <body>
     <div class="sidebar">
-        <div class="brand"><div class="logo">◈</div><div class="brand-text"><h1>[PoArt]</h1><span>PROTOCOL TERMINAL</span></div></div>
+        <div class="brand">
+            <div class="logo">◈</div>
+            <div class="brand-text"><h1>[PoArt]</h1><span>PROTOCOL TERMINAL</span></div>
+        </div>
         
         <div class="menu-title">Live Data Tracking</div>
-        <button class="nav-btn active" onclick="loadPage('modules/michelangelo.html', 'Leaderboard')">🏛️ Leaderboard</button>
+        <button class="nav-btn active" onclick="loadPage('modules/michelangelo.html', 'Michelangelo // Leaderboard')">🏛️ Leaderboard</button>
         <button class="nav-btn" onclick="loadPage('modules/pollock.html', 'Jackson Pollock // Network Status')">🎨 Pollock Status</button>
+        <button class="nav-btn" onclick="loadPage('modules/vangogh.html', 'Van Gogh // Activity Feed')">🌻 Activity Feed</button>
         
         <div class="menu-title">Protocol Rules</div>
         <button class="nav-btn" onclick="loadPage('modules/dali.html', 'Dali // Time Filter')">

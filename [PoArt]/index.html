@@ -51,59 +51,36 @@
             padding: 12px 15px; margin: 4px 0; border-radius: 8px; 
             color: var(--text-muted); cursor: pointer; font-size: 13px; font-weight: 500;
             font-family: var(--font-main); transition: all 0.2s ease; 
-            display: flex; align-items: center; gap: 10px; border: 1px solid transparent;
+            display: flex; align-items: center; justify-content: space-between; border: 1px solid transparent;
         }
         .nav-btn:hover { background: rgba(255,255,255,0.03); color: #fff; }
-        .nav-btn.active { 
-            background: rgba(0,255,136,0.08); 
-            color: var(--accent); 
-            border-color: rgba(0,255,136,0.2);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
+        .nav-btn.active { background: rgba(0,255,136,0.08); color: var(--accent); border-color: rgba(0,255,136,0.2); }
 
-        /* --- MÜHÜR TASARIMLARI --- */
-        .badge-verified {
-            color: #00ff88;
-            font-size: 9px;
-            font-family: var(--font-mono);
-            border: 1px solid #00ff88;
-            padding: 1px 4px;
-            border-radius: 3px;
-            margin-left: auto;
-            text-transform: uppercase;
-        }
+        /* Mühürler */
+        .badge { font-size: 9px; font-family: var(--font-mono); padding: 1px 4px; border-radius: 3px; text-transform: uppercase; }
+        .badge-verified { color: #00ff88; border: 1px solid #00ff88; }
+        .badge-cp { color: #f1c40f; border: 1px solid #f1c40f; }
 
-        .badge-cp {
-            color: #f1c40f;
-            font-size: 9px;
-            font-family: var(--font-mono);
-            border: 1px solid #f1c40f;
-            padding: 1px 4px;
-            border-radius: 3px;
-            margin-left: auto;
+        /* SOL ATE ENGINE TAMİRİ */
+        .engine-container {
+            margin-top: 30px;
+            padding: 15px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
         }
+        .engine-label { font-size: 9px; font-family: var(--font-mono); color: var(--text-muted); margin-bottom: 5px; }
+        .engine-status { font-size: 11px; font-family: var(--font-mono); color: var(--accent); font-weight: 700; display: flex; align-items: center; gap: 5px; }
+        .engine-subtext { font-size: 9px; color: #555; margin-top: 4px; }
         
         .footer-info { margin-top: auto; font-size: 10px; color: var(--text-muted); font-family: var(--font-mono); padding-top: 20px; border-top: 1px solid var(--border-color); display: flex; align-items: center; gap: 8px; }
         .status-led { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 5px var(--accent); animation: pulse 2s infinite; }
         @keyframes pulse { 0%{opacity:1} 50%{opacity:0.5} 100%{opacity:1} }
 
-        .main { 
-            flex: 1; 
-            display: flex; 
-            flex-direction: column; 
-            background: var(--bg-main-gradient);
-            position: relative;
-        }
-        
-        .top-bar { 
-            padding: 20px 30px; 
-            border-bottom: 1px solid var(--border-color); 
-            display: flex; justify-content: space-between; align-items: center; 
-            background: rgba(10, 11, 10, 0.8); backdrop-filter: blur(10px);
-        }
-        h2#page-title { font-size: 18px; margin: 0; font-weight: 600; font-family: var(--font-mono); letter-spacing: 1px; color: #fff; }
-        .connection-status { font-size: 10px; color: var(--accent); font-family: var(--font-mono); border: 1px solid rgba(0,255,136,0.3); padding: 4px 10px; border-radius: 20px; background: rgba(0,255,136,0.05); }
-
+        .main { flex: 1; display: flex; flex-direction: column; background: var(--bg-main-gradient); }
+        .top-bar { padding: 20px 30px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: rgba(10, 11, 10, 0.8); backdrop-filter: blur(10px); }
+        h2#page-title { font-size: 18px; color: #fff; font-family: var(--font-mono); }
+        .connection-status { font-size: 10px; color: var(--accent); font-family: var(--font-mono); border: 1px solid rgba(0,255,136,0.3); padding: 4px 10px; border-radius: 20px; }
         .content-frame { flex: 1; border: none; width: 100%; height: 100%; background: transparent; }
     </style>
 </head>
@@ -111,28 +88,25 @@
     <div class="sidebar">
         <div class="brand">
             <div class="logo">◈</div>
-            <div class="brand-text">
-                <h1>[PoArt]</h1>
-                <span>PROTOCOL TERMINAL</span>
-            </div>
+            <div class="brand-text"><h1>[PoArt]</h1><span>PROTOCOL TERMINAL</span></div>
         </div>
 
         <div class="menu-title">Live Data</div>
         <button class="nav-btn active" onclick="loadPage('modules/michelangelo.html', 'Michelangelo // Leaderboard')">
-            🏛️ Leaderboard <span class="badge-cp">120 CP</span>
+            <span>🏛️ Leaderboard</span> <span class="badge badge-cp">120 CP</span>
         </button>
         <button class="nav-btn" onclick="loadPage('modules/vangogh.html', 'Van Gogh // Live Feed')">🌻 Activity Feed</button>
-        <button class="nav-btn" onclick="loadPage('modules/pollock.html', 'Jackson Pollock // Active Nodes')">🎨 Network Status</button>
-        
-        <div class="menu-title">Tools & Simulation</div>
-        <button class="nav-btn" onclick="loadPage('modules/davinci.html', 'Da Vinci // Calculator')">📐 Score Calc</button>
-        <button class="nav-btn" onclick="loadPage('modules/picasso.html', 'Picasso // Sybil Lab')">🎭 Attack Sim</button>
         
         <div class="menu-title">Protocol Rules</div>
         <button class="nav-btn" onclick="loadPage('modules/dali.html', 'Dali // Time Filter')">
-            🕰️ The 365 Rule <span class="badge-verified">VERIFIED</span>
+            <span>🕰️ The 365 Rule</span> <span class="badge badge-verified">VERIFIED</span>
         </button>
-        <button class="nav-btn" onclick="loadPage('modules/rembrandt.html', 'Rembrandt // The Vault')">🌑 Vault Security</button>
+
+        <div class="engine-container">
+            <div class="engine-label">● SOL ATE ENGINE</div>
+            <div class="engine-status">SYNCED</div>
+            <div class="engine-subtext">GOVERNANCE VERIFIED</div>
+        </div>
 
         <div class="footer-info">
             <div class="status-led"></div>
@@ -141,10 +115,7 @@
     </div>
 
     <div class="main">
-        <div class="top-bar">
-            <h2 id="page-title">Michelangelo // Leaderboard</h2>
-            <div class="connection-status">● SECURE CONNECTION</div>
-        </div>
+        <div class="top-bar"><h2 id="page-title">Michelangelo // Leaderboard</h2><div class="connection-status">● SECURE CONNECTION</div></div>
         <iframe id="app-frame" class="content-frame" src="modules/michelangelo.html"></iframe>
     </div>
 

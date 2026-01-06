@@ -23,11 +23,9 @@
         .nav-btn:hover { background: rgba(255,255,255,0.03); color: #fff; }
         .nav-btn.active { background: rgba(0,255,136,0.08); color: var(--accent); border-color: rgba(0,255,136,0.2); }
         .badge-verified { color: #00ff88; font-size: 9px; font-family: var(--font-mono); border: 1px solid rgba(0,255,136,0.3); padding: 1px 4px; border-radius: 3px; }
-        
         .engine-box { margin-top: 30px; padding: 15px; background: rgba(0,255,136,0.03); border: 1px solid rgba(0,255,136,0.1); border-radius: 8px; }
         .engine-status { font-size: 11px; font-family: var(--font-mono); color: var(--accent); font-weight: 700; }
-        
-        .main { flex: 1; display: flex; flex-direction: column; background: var(--bg-main-gradient); }
+        .main { flex: 1; display: flex; flex-direction: column; background: var(--bg-main-gradient); overflow-y: auto; }
         .top-bar { padding: 20px 30px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: rgba(10,11,10,0.8); backdrop-filter: blur(10px); }
         h2#page-title { font-size: 18px; color: #fff; font-family: var(--font-mono); }
         .content-frame { flex: 1; border: none; width: 100%; height: 100%; background: transparent; }
@@ -35,38 +33,25 @@
 </head>
 <body>
     <div class="sidebar">
-        <div class="brand">
-            <div class="logo">◈</div>
-            <div class="brand-text"><h1>[PoArt]</h1><span>PROTOCOL TERMINAL</span></div>
-        </div>
-        
-        <div class="menu-title">Live Data Tracking</div>
-        <button class="nav-btn active" onclick="loadPage('modules/michelangelo.html', 'Michelangelo // Leaderboard')">🏛️ Leaderboard</button>
-        <button class="nav-btn" onclick="loadPage('modules/pollock.html', 'Jackson Pollock // Network Status')">🎨 Pollock Status</button>
-        <button class="nav-btn" onclick="loadPage('modules/vangogh.html', 'Van Gogh // Activity Feed')">🌻 Activity Feed</button>
-        
+        <div class="brand"><div class="logo">◈</div><div class="brand-text"><h1>[PoArt]</h1><span>PROTOCOL TERMINAL</span></div></div>
+        <div class="menu-title">Live Data</div>
+        <button class="nav-btn active" onclick="loadPage('modules/michelangelo.html', 'Leaderboard')">🏛️ Leaderboard</button>
+        <button class="nav-btn" onclick="loadPage('modules/pollock.html', 'Pollock Status')">🎨 Pollock Status</button>
         <div class="menu-title">Protocol Rules</div>
         <button class="nav-btn" onclick="loadPage('modules/dali.html', 'Dali // Time Filter')">
             <span>🕰️ The 365 Rule</span> <span class="badge-verified">VERIFIED</span>
         </button>
-        <button class="nav-btn" onclick="loadPage('modules/rembrandt.html', 'Rembrandt // The Vault')">🌑 Vault Security</button>
-
+        <button class="nav-btn" onclick="loadPage('modules/rembrandt.html', 'The Vault')">🌑 Vault Security</button>
         <div class="engine-box">
             <div class="engine-status">● SOL ATE ENGINE: SYNCED</div>
             <div style="font-size:9px; color:#555; margin-top:4px;">GOVERNANCE VERIFIED</div>
         </div>
-
-        <div style="margin-top:auto; font-size:10px; color:var(--text-muted); font-family:var(--font-mono); border-top:1px solid var(--border-color); padding-top:20px;">SYSTEM ONLINE <br> Height: 249,102,447</div>
+        <div style="margin-top:auto; font-size:10px; color:var(--text-muted); border-top:1px solid var(--border-color); padding-top:20px;">SYSTEM ONLINE <br> Height: 249,102,447</div>
     </div>
-
     <div class="main">
-        <div class="top-bar">
-            <h2 id="page-title">Michelangelo // Leaderboard</h2>
-            <div style="font-size:10px; color:var(--accent); border:1px solid rgba(0,255,136,0.3); padding:4px 10px; border-radius:20px;">● SECURE CONNECTION</div>
-        </div>
+        <div class="top-bar"><h2 id="page-title">Michelangelo // Leaderboard</h2><div style="font-size:10px; color:var(--accent); border:1px solid rgba(0,255,136,0.3); padding:4px 10px; border-radius:20px;">● SECURE CONNECTION</div></div>
         <iframe id="app-frame" class="content-frame" src="modules/michelangelo.html"></iframe>
     </div>
-
     <script>
         function loadPage(url, title) {
             document.getElementById('app-frame').src = url;

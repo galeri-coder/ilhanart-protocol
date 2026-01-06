@@ -1,0 +1,14 @@
+{
+  "protocol": "PoArt",
+  "rule_id": "CHRONOS_365_SEAL",
+  "parameters": {
+    "minimum_retention_days": 365,
+    "status": "HARD_LOCKED",
+    "verification_multiplier": 2.0,
+    "reset_on_violation": true
+  },
+  "scientific_justification": {
+    "source_1": "Thaler (1985) - Mental Accounting",
+    "source_2": "Newport (2016) - Deep Work"
+  }
+}

@@ -56,22 +56,23 @@
         .nav-btn:hover { background: rgba(255,255,255,0.03); color: #fff; }
         .nav-btn.active { background: rgba(0,255,136,0.08); color: var(--accent); border-color: rgba(0,255,136,0.2); }
 
-        /* Mühürler */
-        .badge { font-size: 9px; font-family: var(--font-mono); padding: 1px 4px; border-radius: 3px; text-transform: uppercase; }
-        .badge-verified { color: #00ff88; border: 1px solid #00ff88; }
-        .badge-cp { color: #f1c40f; border: 1px solid #f1c40f; }
+        /* MÜHÜR TASARIMLARI */
+        .badge { font-size: 9px; font-family: var(--font-mono); padding: 2px 6px; border-radius: 4px; text-transform: uppercase; font-weight: bold; }
+        .badge-verified { color: #00ff88; border: 1px solid rgba(0,255,136,0.3); background: rgba(0,255,136,0.05); }
+        .badge-cp { color: #f1c40f; border: 1px solid rgba(241,196,15,0.3); background: rgba(241,196,15,0.05); }
 
-        /* SOL ATE ENGINE TAMİRİ */
-        .engine-container {
+        /* ENGINE STATUS TASARIMI */
+        .engine-box {
             margin-top: 30px;
             padding: 15px;
             background: rgba(255,255,255,0.02);
             border: 1px solid var(--border-color);
             border-radius: 8px;
         }
-        .engine-label { font-size: 9px; font-family: var(--font-mono); color: var(--text-muted); margin-bottom: 5px; }
-        .engine-status { font-size: 11px; font-family: var(--font-mono); color: var(--accent); font-weight: 700; display: flex; align-items: center; gap: 5px; }
-        .engine-subtext { font-size: 9px; color: #555; margin-top: 4px; }
+        .engine-header { font-size: 9px; font-family: var(--font-mono); color: var(--text-muted); margin-bottom: 8px; display: flex; align-items: center; gap: 5px; }
+        .engine-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 5px var(--accent); }
+        .engine-val { font-size: 12px; font-family: var(--font-mono); color: var(--accent); font-weight: 700; }
+        .engine-sub { font-size: 9px; color: #555; margin-top: 4px; letter-spacing: 0.5px; }
         
         .footer-info { margin-top: auto; font-size: 10px; color: var(--text-muted); font-family: var(--font-mono); padding-top: 20px; border-top: 1px solid var(--border-color); display: flex; align-items: center; gap: 8px; }
         .status-led { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 5px var(--accent); animation: pulse 2s infinite; }
@@ -91,21 +92,23 @@
             <div class="brand-text"><h1>[PoArt]</h1><span>PROTOCOL TERMINAL</span></div>
         </div>
 
-        <div class="menu-title">Live Data</div>
+        <div class="menu-title">Live Data Tracking</div>
         <button class="nav-btn active" onclick="loadPage('modules/michelangelo.html', 'Michelangelo // Leaderboard')">
-            <span>🏛️ Leaderboard</span> <span class="badge badge-cp">120 CP</span>
+            <span>🏛️ Leaderboard</span> 
+            <span class="badge badge-cp">120 CP</span>
         </button>
         <button class="nav-btn" onclick="loadPage('modules/vangogh.html', 'Van Gogh // Live Feed')">🌻 Activity Feed</button>
         
-        <div class="menu-title">Protocol Rules</div>
+        <div class="menu-title">Master Rules</div>
         <button class="nav-btn" onclick="loadPage('modules/dali.html', 'Dali // Time Filter')">
-            <span>🕰️ The 365 Rule</span> <span class="badge badge-verified">VERIFIED</span>
+            <span>🕰️ The 365 Rule</span> 
+            <span class="badge badge-verified">VERIFIED</span>
         </button>
 
-        <div class="engine-container">
-            <div class="engine-label">● SOL ATE ENGINE</div>
-            <div class="engine-status">SYNCED</div>
-            <div class="engine-subtext">GOVERNANCE VERIFIED</div>
+        <div class="engine-box">
+            <div class="engine-header"><div class="engine-dot"></div> SOL ATE ENGINE</div>
+            <div class="engine-val">STATUS: SYNCED</div>
+            <div class="engine-sub">GOVERNANCE PROTOCOL V1.0</div>
         </div>
 
         <div class="footer-info">
@@ -115,7 +118,10 @@
     </div>
 
     <div class="main">
-        <div class="top-bar"><h2 id="page-title">Michelangelo // Leaderboard</h2><div class="connection-status">● SECURE CONNECTION</div></div>
+        <div class="top-bar">
+            <h2 id="page-title">Michelangelo // Leaderboard</h2>
+            <div class="connection-status">● SECURE CONNECTION</div>
+        </div>
         <iframe id="app-frame" class="content-frame" src="modules/michelangelo.html"></iframe>
     </div>
 

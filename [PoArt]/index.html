@@ -42,35 +42,39 @@
 </head>
 <body>
     <div class="sidebar">
-        <div class="brand"><div class="logo">◈</div><div class="brand-text"><h1>[PoArt]</h1><span style="font-size:10px; color:var(--accent);">TERMINAL</span></div></div>
-        
-        <div class="menu-title">Live Data</div>
-        <button class="nav-btn active" onclick="loadPage('modules/michelangelo.html', 'Leaderboard')">🏛️ Leaderboard</button>
-        <button class="nav-btn" onclick="loadPage('modules/pollock.html', 'Network Status')">🎨 Pollock Status</button>
-        
-        <div class="menu-title">Protocol Rules</div>
-        <button class="nav-btn"><span>🕰️ The 365 Rule</span> <span class="badge-verified">VERIFIED</span></button>
-        <button class="nav-btn" onclick="loadPage('modules/rembrandt.html', 'The Vault')">🌑 Vault Security</button>
-
-        <div class="engine-box">
-            <div class="engine-status">● SOL ATE ENGINE: SYNCED</div>
-            <div style="font-size:9px; color:#555; margin-top:4px;">GOVERNANCE VERIFIED</div>
-        </div>
-        <div style="margin-top:auto; font-size:10px; color:var(--text-muted); padding-top:20px; border-top:1px solid var(--border-color);">SYSTEM ONLINE <br> Height: 249,102,447</div>
+    <div class="brand">
+        <div class="logo">◈</div>
+        <div class="brand-text"><h1>[PoArt]</h1><span>PROTOCOL TERMINAL</span></div>
     </div>
 
-    <div class="main">
-        <div class="top-bar"><h2 id="page-title">Genesis // Manifesto</h2><div class="connection-status" style="font-size:10px; color:var(--accent); font-family:var(--font-mono);">● SECURE CONNECTION</div></div>
-        <div class="manifesto-grid">
-            <div class="card"><h4>P-01</h4><h3>CULTURAL LABOR</h3><p style="font-size:12px; color:var(--text-muted);">Financial value is not a result of speculation...</p></div>
-            <div class="card"><h4>P-08</h4><h3>TRANSPARENCY SEAL</h3><p style="font-size:12px; color:var(--text-muted);">Every action is traceable through the terminal...</p></div>
-            <div class="card">
-                <h4>P-09</h4>
-                <h3>THE 365 RULE <span class="badge-verified">VERIFIED</span></h3>
-                <p style="font-size:12px; color:var(--text-muted);">Sustainability is measured in 365-day cycles...</p>
-            </div>
-        </div>
+    <div class="menu-title">Live Data Tracking</div>
+    <button class="nav-btn active" onclick="loadPage('modules/michelangelo.html', 'Leaderboard')">
+        <span>🏛️ Leaderboard</span>
+    </button>
+    <button class="nav-btn" onclick="loadPage('modules/pollock.html', 'Jackson Pollock // Network Status')">
+        <span>🎨 Pollock Status</span>
+    </button>
+
+    <div class="menu-title">Protocol Rules</div>
+    <button class="nav-btn" onclick="loadPage('modules/dali.html', 'Dali // Time Filter')">
+        <span>🕰️ The 365 Rule</span> 
+        <span class="badge-verified" style="color:#00ff88; border:1px solid #00ff88; padding:2px 5px; font-size:9px; border-radius:3px;">VERIFIED</span>
+    </button>
+    
+    <button class="nav-btn" onclick="loadPage('modules/rembrandt.html', 'Rembrandt // The Vault')">
+        <span>🌑 Vault Security</span>
+    </button>
+
+    <div class="engine-status-box" style="margin-top:30px; padding:15px; background:rgba(0,255,136,0.05); border-radius:8px; border:1px solid rgba(0,255,136,0.2);">
+        <div style="font-size:9px; color:#00ff88; font-family:'JetBrains Mono';">● SOL ATE ENGINE</div>
+        <div style="font-size:12px; font-weight:700; color:#fff;">STATUS: SYNCED</div>
     </div>
+
+    <div class="footer-info">
+        <div class="status-led"></div>
+        <div>SYSTEM ONLINE <br> Height: 249,102,447</div>
+    </div>
+</div>
 
     <script>
         function loadPage(url, title) {
